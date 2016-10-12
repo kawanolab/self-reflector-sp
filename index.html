@@ -1,0 +1,538 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta http-equiv="Content-Security-Policy" content="default-src * data:; style-src * 'unsafe-inline'; script-src * 'unsafe-inline' 'unsafe-eval'">
+    <script src="components/loader.js"></script>
+    <script src="lib/onsenui/js/onsenui.min.js"></script>
+
+    <link rel="stylesheet" href="components/loader.css">
+    <link rel="stylesheet" href="lib/onsenui/css/onsenui.css">
+    <link rel="stylesheet" href="lib/onsenui/css/onsen-css-components.css">
+    <link rel="stylesheet" href="css/style.css">
+
+    <script>
+        ons.ready(function() {
+            console.log("Onsen UI is ready!");
+        });
+
+        window.fn = {};
+        window.fn.open = function() {
+          var menu = document.getElementById('menu');
+          menu.open();
+        };
+        window.fn.load = function(page) {
+          var content = document.getElementById('content');
+          var menu = document.getElementById('menu');
+          content.load(page)
+            .then(menu.close.bind(menu));
+        };
+
+    </script>
+    
+    <script type="text/javascript" src="http://code.jquery.com/jquery-2.2.0.js"></script>
+    <script type="text/javascript" src="js/jquery.mmenu.all.min.js"></script>
+    <script>
+            var title = new Array();
+            var te = new Array();
+            var tea = new Array();
+            //var timeout = 5000;
+
+            $.getJSON("http://mentors.tuis.ac.jp/get_user_id", function(data) {
+                user_id = data.user_id;
+                console.log(user_id);
+
+                $.ajax({
+                    url: "json/getk_events/index.php",
+                    data: 'user_id=' + user_id,
+                    type: "POST",
+                    async: false,
+                    success: function(data) {
+                        for (var i in data) {
+                            title[i] = data[i].title;
+                            te[i] = document.createTextNode(title[i]);
+                            console.log(te[i]);
+                        }
+                    }
+                });
+
+
+                $.ajax({
+                    url: "json/geta_events/index.php",
+                    data: 'user_id=' + user_id,
+                    type: "POST",
+                    async: false,
+                    success: function(data) {
+                        for (var i in data) {
+                            title[i] = data[i].title;
+                            tea[i] = document.createTextNode(title[i]);
+                            console.log(tea[i]);
+                        }
+                    }
+                });
+                (function(undefined) {
+                    for (var i = 0; i < 3; i++) {
+                        if (te[i] === undefined) {
+                            te[i] = document.createTextNode("");
+                        }
+                        if (tea[i] === undefined) {
+                            tea[i] = document.createTextNode("");
+                        }
+                    }
+                })();
+
+
+                $(document).ready(function() {
+                    rl00.appendChild(te[0]);
+                    rl01.appendChild(te[1]);
+                    rl02.appendChild(te[2]);
+                    rll00.appendChild(tea[0]);
+                    rll01.appendChild(tea[1]);
+                    rll02.appendChild(tea[2]);
+                });
+
+
+
+            });
+
+            /*
+                $.ajax({
+            		url:  "./json/getk_events/index.php",
+            		data: '&user_id='+ user_id ,
+            		type: "POST",
+                    });
+
+                    $.ajax({
+                        type: "GET",
+                        url: "./json/getk_events/index.php",
+                        async: false,
+                        timeout: timeout,
+                        success: function(data) {
+                          //alert(data.title);
+                            for (var i in data) {
+                              title[i] = data[i].title;
+                              te[i] = document.createTextNode(title[i]);
+                              console.log(te[i]);
+                        }
+                      }
+                    });
+
+                    $.ajax({
+                      url:  "./json/session.php",
+                      data: '&user_id='+ user_id ,
+                      type: "POST",
+                          });
+
+                    $.ajax({
+                        type: "GET",
+                        url: "./json/geta_events/index.php",
+                        async: false,
+                        timeout: timeout,
+                        success: function(data) {
+                          //alert(data.title);
+                            for (var i in data) {
+                              title[i] = data[i].title;
+                              tea[i] = document.createTextNode(title[i]);
+                              console.log(tea[i]);
+                        }
+                      }
+                    });
+            */
+
+
+
+
+            /*kokokaraa
+
+                   $.ajax({
+            	    url:  "json/getk_events/index.php",
+                        data: 'user_id='+ user_id ,
+                        type: "POST",
+                        async: false,
+                        success: function(data) {
+                            for (var i in data) {
+                              title[i] = data[i].title;
+                              te[i] = document.createTextNode(title[i]);
+                              console.log(te[i]);
+                        }
+                      }
+                    });
+
+
+                  $.ajax({
+            	    url:  "json/geta_events/index.php",
+                        data: 'user_id='+ "46" ,
+                        type: "POST",
+                        async: false,
+                        success: function(data) {
+                            for (var i in data) {
+                              title[i] = data[i].title;
+                              tea[i] = document.createTextNode(title[i]);
+                              console.log(tea[i]);
+                        }
+                      }
+                    });
+
+
+                   (function(undefined) {
+                        for (var i = 0; i < 3; i++) {
+                            if (te[i] === undefined) {
+                                te[i] = document.createTextNode("");
+                            }
+                            if (tea[i] === undefined) {
+                                tea[i] = document.createTextNode("");
+                            }
+                        }
+                    })();
+
+
+                    $(document).ready(function() {
+                        rl00.appendChild(te[0]);
+            	    rl01.appendChild(te[1]);
+                        rl02.appendChild(te[2]);
+                        rll00.appendChild(tea[0]);
+                        rll01.appendChild(tea[1]);
+                        rll02.appendChild(tea[2]);
+                    });
+
+            */
+        </script>
+    
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.js'></script>
+    <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.css' />
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.js'></script>
+    
+    <script type="text/javascript" src="http://code.jquery.com/jquery-2.2.0.js"></script>
+    <script type="text/javascript" src="js/jquery.mmenu.all.min.js"></script>
+    <script src="js/register.js"></script>
+    <script>
+        var role = new Array();
+        var activity = new Array();
+        var rl = new Array();
+        var rlname = new Array();
+        var act = new Array();
+        var saw = new Array();
+        var timeout = 5000;
+
+        $.ajax({
+            type: "GET",
+            url: "http://mentors.tuis.ac.jp/get_user_id",
+            async: false,
+            timeout: timeout,
+            success: function(data) {
+                user_id = data.user_id;
+                user_name = data.name;
+                image_url = data.image_url;
+                mission_statement = data.mission_statement;
+            }
+        });
+
+        $.ajax({
+            type: "GET",
+            url: "http://mentors.tuis.ac.jp/get_roles",
+            async: false,
+            timeout: timeout,
+            success: function(data) {
+                for (var i in data) {
+                    role[i] = data[i].role;
+                    activity[i] = data[i].activity;
+                    rl[i] = document.createTextNode(role[i]);
+                    rlname[i] = document.createTextNode(role[i]);
+                    act[i] = document.createTextNode(activity[i]);
+                    saw[i] = document.createTextNode(saw[i]);
+                }
+            }
+        });
+
+
+        (function(undefined) {
+            for (var i = 1; i <= 7; i++) {
+                if (rl[i - 1] === undefined) {
+                    rl[i - 1] = document.createTextNode("");
+                    rlname[i - 1] = document.createTextNode("");
+                }
+                if (act[i - 1] === undefined) {
+                    act[i - 1] = document.createTextNode("null");
+                }
+            }
+        })();
+
+        $(document).ready(function() {
+
+            if (user_id == -1) { //ログインしていない。
+                alert("ログインしてよ");
+            } else if (user_id >= 0) { //ログインしている。
+            }
+
+            //ユーザー情報をhtmlに表示
+            icon.src = image_url;
+            var text = document.createTextNode("現在 " + user_name + " としてログインしています。");
+            userinfo.appendChild(text);
+            var mstext = document.createTextNode(mission_statement);
+            var mstext = document.createTextNode(mission_statement);
+            mst.appendChild(mstext);
+            rl00.appendChild(rl[0]);
+            rl01.appendChild(rl[1]);
+            rl02.appendChild(rl[2]);
+            rl03.appendChild(rl[3]);
+            rl04.appendChild(rl[4]);
+            rl05.appendChild(rl[5]);
+            rl06.appendChild(rl[6]);
+            $("#act0").val(activity[0]);
+            $("#act1").val(activity[1]);
+            $("#act2").val(activity[2]);
+            $("#act3").val(activity[3]);
+            $("#act4").val(activity[4]);
+            $("#act5").val(activity[5]);
+            $("#act6").val(activity[6]);
+            $("#rl0").val(role[0]);
+            $("#rl1").val(role[1]);
+            $("#rl2").val(role[2]);
+            $("#rl3").val(role[3]);
+            $("#rl4").val(role[4]);
+            $("#rl5").val(role[5]);
+            $("#rl6").val(role[6]);
+        });
+    </script>
+    
+    <script type="text/javascript" src="http://code.jquery.com/jquery-2.2.0.js"></script>
+    <script type="text/javascript" src="js/jquery.mmenu.all.min.js"></script>
+    <script src="js/register2.js"></script>
+    <script src="js/event_register.js"></script>
+    <script>
+        $.ajax({
+            type: "GET",
+            url: "http://mentors.tuis.ac.jp/get_user_id",
+            async: false,
+            success: function(data) {
+                user_id = data.user_id;
+                user_name = data.name;
+                image_url = data.image_url;
+                mission_statement = data.mission_statement;
+            }
+        });
+
+        $(document).ready(function() {
+
+            if (user_id == -1) { //ログインしていない。
+                alert("ログインしてよ");
+            } else if (user_id >= 0) { //ログインしている。
+                alert(user_id);
+            }
+        })
+    </script>
+    
+    
+    
+    
+    
+</head>
+<body>
+  <ons-splitter>
+    <ons-splitter-side id="menu" side="left" width="220px" collapse swipeable>
+      <ons-page>
+        <ons-list>
+          <ons-list-item onclick="fn.load('home.html')" tappable>
+            Home
+          </ons-list-item>
+          <ons-list-item onclick="fn.load('event.html')" tappable>
+            Event
+          </ons-list-item>
+          <ons-list-item onclick="fn.load('settings.html')" tappable>
+            Statement
+          </ons-list-item>
+          <ons-list-item onclick="fn.load('about.html')" tappable>
+            Help
+          </ons-list-item>
+        </ons-list>
+      </ons-page>
+    </ons-splitter-side>
+    <ons-splitter-content id="content" page="home.html"></ons-splitter-content>
+  </ons-splitter>
+
+  <ons-template id="home.html">
+    <ons-page>
+      <ons-toolbar>
+        <div class="left">
+          <ons-toolbar-button onclick="fn.open()">
+            <ons-icon icon="md-menu"></ons-icon>
+          </ons-toolbar-button>
+        </div>
+        <div class="center">
+          Home
+        </div>
+      </ons-toolbar>
+      <p style="text-align: center; opacity: 0.6; padding-top: 20px;">
+        <div class="content">
+                <ul id="kyou">
+                    <p>今日やること</p>
+                    <p id="rl00" style="line-height:0px;"></p>
+                    <p id="rl01" style="line-height:0px;"></p>
+                    <p id="rl02" style="line-height:0px;"></p>
+                </ul>
+
+                <ul>
+                    <p>明日やること</p>
+                    <p id="rll00" style="line-height:0px;"></p>
+                    <p id="rll01" style="line-height:0px;"></p>
+                    <p id="rll02" style="line-height:0px;"></p>
+                </ul>
+
+
+            </div>
+      </p>
+    </ons-page>
+  </ons-template>
+  
+    <ons-template id="event.html">
+    <ons-page>
+      <ons-toolbar>
+        <div class="left">
+          <ons-toolbar-button onclick="fn.open()">
+            <ons-icon icon="md-menu"></ons-icon>
+          </ons-toolbar-button>
+        </div>
+        <div class="center">
+          Event
+        </div>
+      </ons-toolbar>
+      　<p>イベント登録<p>
+        <td>タイトル</td>
+        <input type="text" name="title" id="title" value="" size="40">
+        </p>
+        <td>開始時間(年-月-日 時:分:秒)</td>
+        <input type="text" name="start" id="start" value="" size="40">
+        </p>
+        <td>終了時間(年-月-日 時:分:秒)</td>
+        <input type="text" name="end" id="end" value="" size="40">
+        </p>
+        <td>ユーザーID</td>
+        <input type="text" name="user_id" id="user_id" value="" size="40">
+        </p>
+        <td>終日(1で終日)</td>
+        <input type="text" name="allDay" id="allDay" value="" size="40">
+        </p>
+        <td>quad(適当な数字)</td>
+        <input type="text" name="quad" id="quad" value="" size="40">
+        </p>
+        <button onclick="addevent();">　　　　OK　　　　</button>
+    </ons-page>
+  </ons-template>
+
+
+
+  <ons-template id="settings.html">
+    <ons-page>
+      <ons-toolbar>
+        <div class="left">
+          <ons-toolbar-button onclick="fn.open()">
+            <ons-icon icon="md-menu"></ons-icon>
+          </ons-toolbar-button>
+        </div>
+        <div class="center">
+          Statement
+        </div>
+      </ons-toolbar>
+      <p>Statement</p>
+            <textarea id="mst" cols="40" rows="5"></textarea>
+            <br>
+            <button onclick="msok();">　　　　OK　　　　</button>
+
+            <p>役割登録</p>
+            <td>役割1：</td>
+            <input type="text" id="rl0" value="" size="40">
+            </p>
+            <td>役割2：</td>
+            <input type="text" id="rl1" value="" size="40">
+            </p>
+            <td>役割3：</td>
+            <input type="text" id="rl2" value="" size="40">
+            </p>
+            <td>役割4：</td>
+            <input type="text" id="rl3" value="" size="40">
+            </p>
+            <td>役割5：</td>
+            <input type="text" id="rl4" value="" size="40">
+            </p>
+            <td>役割6：</td>
+            <input type="text" id="rl5" value="" size="40">
+            </p>
+            <td>役割7：</td>
+            <input type="text" id="rl6" value="" size="40">
+            </p>
+            <button onclick="rlok();">　　　　OK　　　　</button>
+
+            <p>活動登録</p>
+            <p id="rl00" style="line-height:0px;"></p>
+            <input type="text" id="act0" value="" size="40">
+            </p>
+            <p id="rl01" style="line-height:0px;"></p>
+            <input type="text" id="act1" value="" size="40">
+            </p>
+            <p id="rl02" style="line-height:0px;"></p>
+            <input type="text" id="act2" value="" size="40">
+            </p>
+            <p id="rl03" style="line-height:0px;"></p>
+            <input type="text" id="act3" value="" size="40">
+            </p>
+            <p id="rl04" style="line-height:0px;"></p>
+            <input type="text" id="act4" value="" size="40">
+            </p>
+            <p id="rl05" style="line-height:0px;"></p>
+            <input type="text" id="act5" value="" size="40">
+            </p>
+            <p id="rl06" style="line-height:0px;"></p>
+            <input type="text" id="act6" value="" size="40">
+            </p>
+            <button onclick="actok();">　　　　OK　　　　</button></p>
+    </ons-page>
+  </ons-template>
+
+  <ons-template id="about.html">
+    <ons-page>
+      <ons-toolbar>
+        <div class="left">
+          <ons-toolbar-button onclick="fn.open()">
+            <ons-icon icon="md-menu"></ons-icon>
+          </ons-toolbar-button>
+        </div>
+        <div class="center">
+          <Help></Help>
+        </div>
+      </ons-toolbar>
+            <p>スティーブン・R・コヴィーが提唱した『７つの習慣』では、第ニ領域の活動が最も重要とされています。 本サイトは、第二領域の活動を優先する第二領域時間管理を高めるための学生向けサービスです。「緊急度」ではなく「重要度」に基づいた一週間毎のスケジュールを立てることで「重要度」に基づいた時間管理ができるようになり、学生生活の質が向上することが期待されています。</p>
+            <h1>第二領域時間管理について</h1>
+            <p>私たちの活動はすべて「緊急度」と「重要度」の2つの軸により、4つの領域に分類することができます。第二領域を優先する第二領域時間管理を実践すると「緊急度」ではなく「重要度」に焦点を切り替えることができ、柔軟な考え方によるスケジュールを立てられるようになります。</p>
+            <h2>第一領域 「緊急かつ重要な活動」</h2>
+            <p>この領域のために時間を割かないわけにはいかず、第一領域を無視すると大変なことになります。しかし、この領域の活動の多くは、ぐずぐずしていて重要なことに着手するのが遅れたり、予防や計画が不十分だったりした結果、緊急に対応しなくてはならなくなったものです。</p>
+            <h2>第二領域 「重要だけれども緊急ではない活動」</h2>
+            <p>目標のために役立つ行動や、人生に豊かさや意義をもたらす活動がこの領域に入ります。この領域をを無視すれば、第一領域に費やす時間が増えてしまいます。反対に、第二領域に時間を費やせば、第一領域の行動を減らすことができます。しかし、この領域の活動は私たちに働きかけてくることはないため、自ら働きかけなければならないのです。</p>
+            <h2>第三領域 「緊急だけれども重要ではない活動」</h2>
+            <p>この領域は第一領域に類似しています。緊急なことは重要なことだと思い込みがちなため、多くの人がこの領域を第一領域だと思い時間を費やしています。しかし「緊急だけれども重要ではない活動」というのは、自分以外の誰かにとって重要だということにすぎないのです。</p>
+            <h2>第四領域 「緊急でも重要でもない活動」</h2>
+            <p>この領域は無駄な領域であり、時間を費やすべきではありません。生きるために必要なことではない、生活の質を悪化させるだけの活動がこの領域に入ります。</p>
+            <h1>ミッション・ステートメントとは</h1>
+            <p>ミッション・ステートメントとは、信条あるいは理念を表明したものです。個人のミッション・ステートメントには、どのような人間になりたいか、何をしたいのか、そしてそれらの土台となる価値観と原則を書き出します。ミッション・ステートメントは、あなたの憲法と言えます。あなたにとって揺るぎない基準であり、人生の重要な決断を下すときの基礎となるものです。ミッション・ステートメントがあれば、変化に対応しながら生活できるようになります。</p>
+            <h1>「7つの習慣」について</h1>
+            <p>「7つの習慣」とは、スティーブン・R・コヴィー博士によって提唱された人生を幸福に導く成功哲学です。本サイトは「7つの習慣」をベースとして作られています。もしあなたがさらに効果を高めたいと思うなら「7つの習慣」を読むことをオススメします。</p>
+
+            <h2>私的成功</h2>
+            <p>第一の習慣：主体的である
+                <br> 第二の習慣：終わりを思い描くことから始める
+
+                <br> 第三の習慣：最優先事項を考える
+
+            </p>
+            <h2>公的成功</h2>
+            <p>第四の習慣：Win-Winを考える
+                <br> 第五の習慣：まず理解に徹し、そして理解される
+                <br> 第六の習慣：シナジーを作り出す
+            </p>
+            <h2>再新再生</h2>
+            <p>第七の習慣：刃を砥ぐ</p>
+    </ons-page>
+  </ons-template>
+
+</body>
+</html>
